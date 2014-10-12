@@ -270,6 +270,27 @@ config MMC_SDHCI_BCM_KONA
 
 	  If you have a controller with this interface, say Y or M here.
 
+config MMC_SDHCI_BCM2708
+	tristate "SDHCI support on BCM2708"
+	depends on MMC_SDHCI && MACH_BCM2708
+	select MMC_SDHCI_IO_ACCESSORS
+	help
+	  This selects the Secure Digital Host Controller Interface (SDHCI)
+	  often referrered to as the eMMC block.
+
+	  If you have a controller with this interface, say Y or M here.
+
+	  If unsure, say N.
+
+config MMC_SDHCI_BCM2708_DMA
+	bool "DMA support on BCM2708 Arasan controller"
+	depends on MMC_SDHCI_BCM2708
+	help
+	Enable DMA support on the Arasan SDHCI controller in Broadcom 2708
+	  based chips.
+
+	  If unsure, say N.
+
 config MMC_SDHCI_BCM2835
 	tristate "SDHCI platform support for the BCM2835 SD/MMC Controller"
 	depends on ARCH_BCM2835
@@ -289,6 +310,35 @@ config MMC_MOXART
 	  MOXA provides one multi-functional card reader which can
 	  be found on some embedded hardware such as UC-7112-LX.
 	  If you have a controller with this interface, say Y here.
+
+config MMC_BCM2835
+	tristate "MMC support on BCM2835"
+	depends on MACH_BCM2708
+	help
+	  This selects the MMC Interface on BCM2835.
+
+	  If you have a controller with this interface, say Y or M here.
+
+	  If unsure, say N.
+
+config MMC_BCM2835_DMA
+	bool "DMA support on BCM2835 Arasan controller"
+	depends on MMC_BCM2835
+	help
+	  Enable DMA support on the Arasan SDHCI controller in Broadcom 2708
+	  based chips.
+
+	  If unsure, say N.
+
+config MMC_BCM2835_PIO_DMA_BARRIER
+	int "Block count limit for PIO transfers"
+	depends on MMC_BCM2835 && MMC_BCM2835_DMA
+	range 0 256
+	default 2
+	help
+	  The inclusive limit in bytes under which PIO will be used instead of DMA
+
+	  If unsure, say 2 here.
 
 config MMC_OMAP
 	tristate "TI OMAP Multimedia Card Interface support"
